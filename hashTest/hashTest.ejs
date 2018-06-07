@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hash Testing</title>
+    <script  src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+</head>
+<body>
+    <input id ="password" type="text" name='password'>
+    <button id="submit">GenerateHash</button>
+    <button id="check"> Check </button>
+    <p id="res"></p>
+    <script>
+    
+    $('#submit').click(() =>{
+        console.log(this)
+        var data = $('#password').val() 
+        $.ajax({
+            url: '/generateHash',
+            type: 'post',
+            data: JSON.stringify({password: data}),
+            contentType: 'application/json',
+        }).done((res) => {
+             if(res){
+                 $('#res').html(res)
+             }
+        })
+        
+    })
+
+    $('#check').click(() => {
+        var data = $('#password').val() 
+        $.ajax({
+            url: '/checkHash',
+            type: 'post',
+            data: JSON.stringify({password: data}),
+            contentType: 'application/json',
+        }).done((res) => {
+                if(!res){
+                        $('body').css('backgroundColor', 'red')
+                }else{
+                    $('body').css('backgroundColor','green')
+                }
+             
+        })
+    })
+    
+    </script>
+</body>
+</html>
