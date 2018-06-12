@@ -42,6 +42,6 @@ app.post('/checkHash', (req,response) => {
     
 
 })
-app.listen(8080, (req,res) => {
+app.listen(process.env.PORT || 8080, (req,res) => {
     console.log('listening on 8080')
 })
